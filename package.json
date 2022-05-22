@@ -1,0 +1,27 @@
+{
+  "name": "blockchain_wallet",
+  "version": "1.0.0",
+  "description": "Insight on how different tokens actually work on the blockchain. A user will create a wallet and add different tokens they have purchased. They'll also be able to remove and add more token to their wallet",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Peter-Paul/blockchain_wallet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Peter-Paul/blockchain_wallet/issues"
+  },
+  "homepage": "https://github.com/Peter-Paul/blockchain_wallet#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.6.0",
+    "web3": "^1.7.3"
+  }
+}
