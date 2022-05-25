@@ -12,12 +12,6 @@ contract Wallet {
         creator = msg.sender;
     }
 
-    
-    // function withdraw(uint256 amount) external returns(bool){
-    //     payable(msg.sender).transfer(amount);
-    //     return true;
-    // }
-
     function balanceInToken(ERC20 token, address owner) public view returns(uint256){
         return token.balanceOf(owner);
     }
