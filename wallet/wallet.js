@@ -1,10 +1,8 @@
 const W3 = require("./w3")
+const ERC20 = require("./erc20")
 const walletAbi = require("../build/contracts/Wallet.json")
 const t1Abi = require("../build/contracts/T1.json")
 const t2Abi = require("../build/contracts/T2.json")
-const t3Abi = require("../build/contracts/T3.json")
-const ERC20 = require("./erc20")
-
 
 class Wallet {
     constructor(){
