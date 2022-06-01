@@ -1,31 +1,51 @@
-const Web3 = require("web3")
-const Wallet = require("../build/contracts/Wallet.json")
+const W3 = require("./w3")
+const walletAbi = require("../build/contracts/Wallet.json")
+const t1Abi = require("../build/contracts/T1.json")
+const t2Abi = require("../build/contracts/T2.json")
+const t3Abi = require("../build/contracts/T3.json")
+const ERC20 = require("./erc20")
 
-const web3 = new Web3('http://localhost:8545');
 
-const loadWeb3 = async () => {
-    const wAddress = "0xf69d57fd76CB906BA7e312616dEb6e547C15D87c"
-    const accounts = await web3.eth.getAccounts()
-    const account =  accounts[0]
-    const nID = await web3.eth.net.getId()
-    
-    const walletData = Wallet.networks[nID]
-    // web3.eth.sendTransaction( {
-    //     from:accounts[8],
-    //     to:wAddress,
-    //     value:`${ 5 * (10**18)}`
-    // }).then( receipt=>{
-    //     console.log(receipt)
-    // })
-    // console.log(Wallet.abi)
-    // console.log(await web3.eth.getBalance(wAddress))
-    if(walletData){
-        const wallet = new web3.eth.Contract( Wallet.abi, walletData.address )
-        // console.log(await wallet.methods.tokenAddress("0x995b0B070d820abdeaB654BF1fa36C8e1EBa00D7").call())
-        // console.log(await wallet.methods.buy().send({value:`${10 * (10 ** 18)}`, from:accounts[5]}))
-        // console.log(await wallet.methods.withdraw(`${30 * (10 ** 18)}`).send({from:accounts[5]}))
+class Wallet {
+    constructor(){
+        this.w3 = new W3(walletAbi)
     }
-    // console.log(await web3.eth.getAccounts())
+
+    balanceInToken( token,user ){
+        return new Promise( (resolve, reject) => {
+            try{
+                this.w3.init().then( async ({contract}) => {
+                    try{
+                        const balance = await contract.methods.balanceInToken(token,user).call()
+                        resolve(balance)
+                    }catch(err){reject("Possible address error")}
+                })
+            }catch(err){console.log('Contract initiation error')}
+        })
+
+    }
+
+    balanceInWallet( token,user ){
+        return new Promise( (resolve, reject) => {
+            try{
+                this.w3.init().then( async ({contract}) => {
+                    try{
+                        const balance = await contract.methods.balanceInWallet(token).call({from:user})
+                        resolve(balance)
+                    }catch(err){reject("Possible address error")}
+                })
+            }catch(err){console.log('Contract initiation error')}
+        })
+
+    }
+
 }
 
-loadWeb3()
+const userAddress1 = ""
+const userAddress2 = ""
+const t1 = new ERC20(t1Abi)
+const t2 = new ERC20(t2Abi)
+const wallet = new Wallet()
+
+t1.tokenAddress().then( address =>  wallet.balanceInToken(address,userAddress1).then( balance => console.log(balance) ) )
+t2.tokenAddress().then( address =>  wallet.balanceInWallet(address,userAddress2).then( balance => console.log(balance) ) )

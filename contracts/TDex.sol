@@ -6,7 +6,7 @@ import '@uniswap/v2-periphery/contracts/UniswapV2Router02.sol';
 
 
 contract TDex {
-    string public name = "TDex";
+  string public name = "TDex";
   address internal constant UNISWAP_V2_ROUTER = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D; // on mainnet. You can change to testnet address
   IUniswapV2Router02 public uniswapRouter;
 

@@ -36,11 +36,7 @@ contract Wallet {
         payable(account).transfer(amount);
     }
 
-    function tokenAddress( ERC20 token ) public pure returns(address){
-        return address(token);
-    }
-
-    function balanceForToken( ERC20 token ) public view returns(uint256){
+    function balanceInWallet( ERC20 token ) public view returns(uint256){
         return walletAccounts[msg.sender][address(token)];
     }
 
