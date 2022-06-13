@@ -14,9 +14,6 @@ module.exports = async function (deployer,network,accounts) {
     const t1 = await T1.deployed()
     const t3 = await T3.deployed()
 
-    // Create Dex Contract with 10 ether from the deployer account
-    await deployer.deploy(TDex, { from: accounts[0], value: InitialSupply });
-
     // Transfer token from minter address to user account
     await t2.transfer(accounts[1], 10000000000, {
         from: accounts[0],
